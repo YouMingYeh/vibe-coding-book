@@ -1,0 +1,666 @@
+---
+title: "Build a Website"
+description: "Learn how to build modern, responsive websites using cutting-edge web technologies"
+---
+
+# Build a Website
+
+Welcome to the comprehensive guide for building modern websites! Whether you're a complete beginner or looking to level up your web development skills, this tutorial will guide you through creating beautiful, responsive, and performant websites.
+
+## Getting Started
+
+Web development has evolved tremendously, and today's tools make it easier than ever to create professional websites. Let's explore the modern web development landscape and build something amazing together.
+
+### Essential Technologies
+
+#### Frontend Fundamentals
+
+**HTML5**: The foundation of web content
+- Semantic markup for better accessibility
+- Modern APIs for rich interactions
+- Progressive enhancement principles
+
+**CSS3**: Styling and layout
+- Flexbox and Grid for responsive layouts
+- Custom properties (CSS variables)
+- Animations and transitions
+- Modern selectors and pseudo-classes
+
+**JavaScript (ES6+)**: Interactive functionality
+- Modern syntax with arrow functions and destructuring
+- Async/await for handling promises
+- Modules for better code organization
+- DOM manipulation and event handling
+
+#### Modern Development Stack
+
+**React**: Component-based UI library
+```jsx
+// Modern React with hooks
+import { useState, useEffect } from 'react'
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchUser(userId).then(userData => {
+      setUser(userData)
+      setLoading(false)
+    })
+  }, [userId])
+
+  if (loading) return <div>Loading...</div>
+
+  return (
+    <div className="user-profile">
+      <h2>{user.name}</h2>
+      <p>{user.bio}</p>
+    </div>
+  )
+}
+```
+
+**Next.js**: Full-stack React framework
+- Server-side rendering (SSR)
+- Static site generation (SSG)
+- API routes for backend functionality
+- Built-in optimization and performance features
+
+**TypeScript**: Type-safe JavaScript
+```typescript
+// Type safety for better development experience
+interface User {
+  id: number
+  name: string
+  email: string
+  preferences: UserPreferences
+}
+
+interface UserPreferences {
+  theme: 'light' | 'dark'
+  notifications: boolean
+  language: string
+}
+
+async function updateUser(user: User): Promise<User> {
+  const response = await fetch(`/api/users/${user.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(user)
+  })
+  
+  return response.json()
+}
+```
+
+## Design and User Experience
+
+### Modern Design Principles
+
+#### Responsive Design
+
+Your website should work perfectly on all devices:
+
+```css
+/* Mobile-first responsive design */
+.container {
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    padding: 3rem;
+  }
+}
+```
+
+#### Accessibility (a11y)
+
+Make your website usable for everyone:
+
+```jsx
+// Accessible form components
+function ContactForm() {
+  return (
+    <form aria-label="Contact form">
+      <div>
+        <label htmlFor="name">
+          Name <span aria-label="required">*</span>
+        </label>
+        <input
+          id="name"
+          type="text"
+          required
+          aria-describedby="name-error"
+        />
+        <div id="name-error" role="alert" aria-live="polite">
+          {/* Error message appears here */}
+        </div>
+      </div>
+      
+      <button type="submit" aria-describedby="submit-help">
+        Send Message
+      </button>
+      <div id="submit-help">
+        Your message will be sent to our support team
+      </div>
+    </form>
+  )
+}
+```
+
+### CSS Frameworks and Styling
+
+#### Tailwind CSS
+
+Utility-first CSS framework for rapid development:
+
+```jsx
+// Tailwind CSS classes for modern design
+function HeroSection() {
+  return (
+    <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          Build Amazing Websites
+        </h1>
+        <p className="text-xl md:text-2xl mb-8 opacity-90">
+          Learn modern web development with the latest tools and techniques
+        </p>
+        <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          Get Started
+        </button>
+      </div>
+    </section>
+  )
+}
+```
+
+#### CSS-in-JS Solutions
+
+Styled-components for component-scoped styling:
+
+```jsx
+import styled from 'styled-components'
+
+const StyledCard = styled.div`
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+`
+
+function ProductCard({ title, description, price }) {
+  return (
+    <StyledCard>
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <span>${price}</span>
+    </StyledCard>
+  )
+}
+```
+
+## Backend and APIs
+
+### Node.js and Express
+
+Building server-side applications:
+
+```javascript
+// Express.js API server
+const express = require('express')
+const cors = require('cors')
+const helmet = require('helmet')
+
+const app = express()
+
+// Middleware
+app.use(helmet()) // Security headers
+app.use(cors()) // Cross-origin requests
+app.use(express.json()) // Parse JSON bodies
+
+// Routes
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await getUsersFromDatabase()
+    res.json(users)
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch users' })
+  }
+})
+
+app.post('/api/users', async (req, res) => {
+  try {
+    const newUser = await createUser(req.body)
+    res.status(201).json(newUser)
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create user' })
+  }
+})
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000')
+})
+```
+
+### Database Integration
+
+#### MongoDB with Mongoose
+
+```javascript
+// MongoDB schema and model
+const mongoose = require('mongoose')
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  createdAt: { type: Date, default: Date.now },
+  preferences: {
+    theme: { type: String, enum: ['light', 'dark'], default: 'light' },
+    notifications: { type: Boolean, default: true }
+  }
+})
+
+const User = mongoose.model('User', userSchema)
+
+// Database operations
+async function createUser(userData) {
+  const user = new User(userData)
+  return await user.save()
+}
+
+async function getUserById(id) {
+  return await User.findById(id)
+}
+```
+
+#### PostgreSQL with Prisma
+
+```prisma
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+```
+
+```typescript
+// Using Prisma client
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function createPost(title: string, content: string, authorId: number) {
+  return await prisma.post.create({
+    data: {
+      title,
+      content,
+      author: {
+        connect: { id: authorId }
+      }
+    },
+    include: {
+      author: true
+    }
+  })
+}
+```
+
+## Performance and Optimization
+
+### Core Web Vitals
+
+Optimize for Google's Core Web Vitals:
+
+#### Largest Contentful Paint (LCP)
+```jsx
+// Optimize images for faster loading
+import Image from 'next/image'
+
+function OptimizedHero() {
+  return (
+    <section>
+      <Image
+        src="/hero-image.jpg"
+        alt="Hero image"
+        width={1200}
+        height={600}
+        priority // Load immediately for above-the-fold content
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ..."
+      />
+    </section>
+  )
+}
+```
+
+#### First Input Delay (FID)
+```javascript
+// Code splitting for better performance
+import { lazy, Suspense } from 'react'
+
+const HeavyComponent = lazy(() => import('./HeavyComponent'))
+
+function App() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <HeavyComponent />
+      </Suspense>
+    </div>
+  )
+}
+```
+
+#### Cumulative Layout Shift (CLS)
+```css
+/* Prevent layout shifts with proper sizing */
+.image-container {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+### Caching Strategies
+
+```javascript
+// Service Worker for caching
+self.addEventListener('fetch', (event) => {
+  if (event.request.destination === 'image') {
+    event.respondWith(
+      caches.open('images-cache').then((cache) => {
+        return cache.match(event.request).then((response) => {
+          return response || fetch(event.request).then((fetchResponse) => {
+            cache.put(event.request, fetchResponse.clone())
+            return fetchResponse
+          })
+        })
+      })
+    )
+  }
+})
+```
+
+## Deployment and DevOps
+
+### Modern Deployment Platforms
+
+#### Vercel (Recommended for Next.js)
+```json
+// vercel.json
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database-url"
+  }
+}
+```
+
+#### Netlify
+```toml
+# netlify.toml
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+```
+
+### CI/CD with GitHub Actions
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - run: npm ci
+      - run: npm run build
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: '--prod'
+```
+
+## Security Best Practices
+
+### Frontend Security
+
+```javascript
+// Content Security Policy
+const securityHeaders = [
+  {
+    key: 'Content-Security-Policy',
+    value: `
+      default-src 'self';
+      script-src 'self' 'unsafe-eval' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      font-src 'self';
+    `.replace(/\s{2,}/g, ' ').trim()
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'DENY'
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff'
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin'
+  }
+]
+```
+
+### Input Validation
+
+```javascript
+// Server-side validation with Joi
+const Joi = require('joi')
+
+const userSchema = Joi.object({
+  name: Joi.string().min(2).max(50).required(),
+  email: Joi.string().email().required(),
+  age: Joi.number().integer().min(13).max(120)
+})
+
+app.post('/api/users', (req, res) => {
+  const { error, value } = userSchema.validate(req.body)
+  
+  if (error) {
+    return res.status(400).json({ 
+      error: error.details[0].message 
+    })
+  }
+  
+  // Process validated data
+  createUser(value)
+})
+```
+
+## Testing
+
+### Unit Testing with Jest
+
+```javascript
+// userService.test.js
+const { createUser, validateEmail } = require('./userService')
+
+describe('User Service', () => {
+  test('should create user with valid data', async () => {
+    const userData = {
+      name: 'John Doe',
+      email: 'john@example.com'
+    }
+    
+    const user = await createUser(userData)
+    
+    expect(user).toHaveProperty('id')
+    expect(user.name).toBe('John Doe')
+    expect(user.email).toBe('john@example.com')
+  })
+
+  test('should validate email format', () => {
+    expect(validateEmail('valid@email.com')).toBe(true)
+    expect(validateEmail('invalid-email')).toBe(false)
+  })
+})
+```
+
+### Integration Testing with Cypress
+
+```javascript
+// cypress/integration/user-flow.spec.js
+describe('User Registration Flow', () => {
+  it('should allow user to register and login', () => {
+    cy.visit('/register')
+    
+    cy.get('[data-testid="name-input"]').type('John Doe')
+    cy.get('[data-testid="email-input"]').type('john@example.com')
+    cy.get('[data-testid="password-input"]').type('securepassword')
+    
+    cy.get('[data-testid="submit-button"]').click()
+    
+    cy.url().should('include', '/dashboard')
+    cy.contains('Welcome, John Doe').should('be.visible')
+  })
+})
+```
+
+## Next Steps
+
+Ready to start building? Here's your roadmap:
+
+1. **Choose Your Stack**: Start with HTML, CSS, and JavaScript basics
+2. **Learn a Framework**: React with Next.js is highly recommended
+3. **Build Projects**: Start with small projects and gradually increase complexity
+4. **Deploy Early**: Get your projects online with platforms like Vercel or Netlify
+5. **Join the Community**: Participate in developer communities and contribute to open source
+
+## Resources
+
+### Learning Platforms
+- [freeCodeCamp](https://www.freecodecamp.org/) - Free coding bootcamp
+- [The Odin Project](https://www.theodinproject.com/) - Full-stack curriculum
+- [MDN Web Docs](https://developer.mozilla.org/) - Comprehensive web documentation
+
+### Tools and Frameworks
+- [React](https://reactjs.org/) - Popular UI library
+- [Next.js](https://nextjs.org/) - Full-stack React framework
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Prisma](https://www.prisma.io/) - Modern database toolkit
+
+### Deployment Platforms
+- [Vercel](https://vercel.com/) - Optimized for frontend frameworks
+- [Netlify](https://www.netlify.com/) - JAMstack platform
+- [Railway](https://railway.app/) - Full-stack deployment
+
+Building websites is an incredibly rewarding skill that opens up endless possibilities. Start with the basics, be patient with yourself, and remember that every expert was once a beginner. Happy coding!

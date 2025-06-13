@@ -1,0 +1,230 @@
+---
+title: "Enhanced MDX Showcase"
+description: "A comprehensive showcase of the enhanced MDX setup with beautiful typography, components, and features"
+---
+
+import ExampleAlert from "@/components/mdx/example-alert";
+
+# Enhanced MDX Showcase
+
+Welcome to our enhanced MDX setup! This page demonstrates the beautiful typography, custom components, and improved user experience we've built into the system.
+
+<ExampleAlert />
+
+## Features Overview
+
+Our enhanced MDX system includes:
+
+- **Beautiful Typography**: Carefully crafted spacing and font sizing
+- **Custom Components**: Integration with shadcn/ui component library
+- **Dark Mode**: Seamless theme switching with proper contrast
+- **Table of Contents**: Automatic generation and navigation
+- **Enhanced Code Blocks**: Syntax highlighting with copy functionality
+- **Custom Alerts**: Multiple alert types for different content needs
+
+## Typography Hierarchy
+
+### Level 3 Heading
+The typography scales beautifully across all heading levels with proper spacing and visual hierarchy.
+
+#### Level 4 Heading
+Even at deeper levels, the typography maintains its elegance and readability.
+
+##### Level 5 Heading
+Perfect for detailed documentation and complex content structures.
+
+## Component Showcase
+
+### Cards
+
+Here's an example of using shadcn/ui cards directly in MDX:
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Feature Highlight</CardTitle>
+    <CardDescription>
+      This card showcases how seamlessly shadcn/ui components integrate with MDX content.
+    </CardDescription>
+  </CardHeader>
+  <CardContent>
+    <div className="space-y-4">
+      <p>You can include any content inside cards, including:</p>
+      <ul className="list-disc list-inside space-y-2">
+        <li>**Formatted text** with markdown syntax</li>
+        <li>`Inline code` with proper styling</li>
+        <li>Complex layouts and components</li>
+      </ul>
+      <div className="flex gap-2">
+        <Badge variant="default">Primary</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="outline">Outline</Badge>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+### Custom Alerts
+
+Our custom alert system provides multiple variants for different types of content:
+
+<CalloutAlert type="info">
+  **Did you know?** This enhanced MDX setup automatically generates IDs for headings and creates a navigable table of contents on larger screens.
+</CalloutAlert>
+
+<CalloutAlert type="success">
+  **Success!** All components are fully accessible and follow WCAG guidelines for color contrast and keyboard navigation.
+</CalloutAlert>
+
+<CalloutAlert type="warning">
+  **Important Note**: While these components work great in MDX, remember to test thoroughly across different screen sizes and devices.
+</CalloutAlert>
+
+<CalloutAlert type="error">
+  **Critical**: Always validate your MDX syntax before deploying to avoid rendering issues in production.
+</CalloutAlert>
+
+## Code Examples
+
+### TypeScript Components
+
+Here's an example of a React component with TypeScript:
+
+```tsx
+import { Button } from '@workspace/ui/components/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@workspace/ui/components/card'
+
+interface FeatureCardProps {
+  title: string
+  description: string
+  onClick: () => void
+}
+
+export function FeatureCard({ title, description, onClick }: FeatureCardProps) {
+  return (
+    <Card className="transition-all hover:shadow-lg">
+      <CardHeader>
+        <CardTitle className="text-lg">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground mb-4">{description}</p>
+        <Button onClick={onClick} className="w-full">
+          Learn More
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+### CSS Styling
+
+Custom CSS with Tailwind utilities:
+
+```css
+.prose-enhanced {
+  @apply max-w-none;
+  @apply prose-headings:scroll-m-20;
+  @apply prose-headings:tracking-tight;
+  @apply prose-h1:text-4xl prose-h1:font-bold;
+  @apply prose-h2:border-b prose-h2:pb-2;
+  @apply prose-p:leading-7 prose-p:[&:not(:first-child)]:mt-6;
+}
+
+.code-block-enhanced {
+  @apply relative rounded-lg border bg-muted/50;
+  @apply overflow-hidden;
+}
+
+.code-block-enhanced pre {
+  @apply overflow-x-auto p-4 text-sm;
+  @apply bg-transparent;
+}
+```
+
+### JSON Configuration
+
+Configuration examples with proper syntax highlighting:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["dom", "dom.iterable", "ES6"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./components/*"]
+    }
+  }
+}
+```
+
+## Interactive Elements
+
+### Task Lists
+
+Track your progress with interactive checkboxes:
+
+- [x] Set up enhanced MDX configuration
+- [x] Create custom component library
+- [x] Implement beautiful typography
+- [x] Add dark mode support
+- [ ] Create documentation templates
+- [ ] Add more interactive components
+- [ ] Optimize for performance
+- [ ] Add accessibility testing
+
+### Tables
+
+Enhanced table styling with proper borders and spacing:
+
+| Component | Status | Description | Usage |
+|-----------|:------:|-------------|-------|
+| Alert | ✅ Ready | Custom alert components | `<CalloutAlert type="info">` |
+| Card | ✅ Ready | Flexible card layouts | `<Card><CardHeader>` |
+| Badge | ✅ Ready | Status indicators | `<Badge variant="default">` |
+| CodeBlock | 🚧 Beta | Enhanced code display | `<CodeBlock language="tsx">` |
+| Table of Contents | ✅ Ready | Auto-generated navigation | Automatic |
+
+## Best Practices
+
+### Content Organization
+
+1. **Start with clear headings** to create a logical content hierarchy
+2. **Use custom alerts** to highlight important information
+3. **Include code examples** with proper syntax highlighting
+4. **Add interactive elements** like task lists and tables
+5. **Wrap related content in cards** for better visual organization
+
+### Accessibility
+
+> **Important**: All components are built with accessibility in mind, including proper ARIA labels, keyboard navigation, and color contrast ratios that meet WCAG AA standards.
+
+### Performance
+
+The enhanced MDX setup is optimized for performance with:
+
+- Tree-shaking of unused components
+- Optimized CSS with Tailwind's purge functionality
+- Lazy loading of heavy components
+- Minimal JavaScript for interactive features
+
+## Conclusion
+
+This enhanced MDX setup provides a powerful foundation for creating beautiful, accessible, and interactive documentation. The combination of carefully crafted typography, custom components, and thoughtful user experience makes it perfect for technical documentation, blog posts, and educational content.
+
+---
+
+*Ready to start writing amazing content? Check out the component documentation and start building your next project with confidence!*
